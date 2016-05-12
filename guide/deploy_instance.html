@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>仮想マシン(インスタンス)のデプロイ &mdash; GiraffeStack 1.0.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="GiraffeStack 1.0.0 ドキュメント" href="../index.html" />
+    <link rel="prev" title="GiraffeStackとは" href="../about/about_giraffestack.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../about/about_giraffestack.html" title="GiraffeStackとは"
+             accesskey="P">前へ</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">GiraffeStack 1.0.0 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>仮想マシン(インスタンス)のデプロイ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>仮想マシン(インスタンス)について<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+<div class="section" id="id3">
+<h2>前提<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li>仮想ネットワーク名「Sample Network」内に仮想マシン「Test Instance」を構築する</li>
+<li>OS : CentOS 7</li>
+<li>仮想CPU : 1core</li>
+<li>仮想メモリ : 2GB</li>
+<li>仮想ディスク : 20GB(フレーバ-内蔵の一時領域)</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>構築手順<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ol class="arabic simple">
+<li>ダッシュボードより「コンピュート」→「インスタンス」を選択する</li>
+<li>「インスタンス」の起動を選択する</li>
+<li>Instance Nameに「Test Instance」と入力する。（その他はデフォルト）</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/instance01.png"><img alt="../_images/instance01.png" src="../_images/instance01.png" style="width: 671.3px; height: 359.8px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>ブートソースは「イメージ」を選択する。新規ボリュームは選択しない。</li>
+<li>利用可能な「イメージ」が画面下部に表示されている為、今回は「CentOS7 minimal」を選択します。</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/instance02.png"><img alt="../_images/instance02.png" src="../_images/instance02.png" style="width: 672.7px; height: 466.2px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<ul class="last simple">
+<li>「新規ボリューム」を作成すると、他の仮想マシンでも再利用可能な仮想ハードディスクを用意し、そこにイメージをインストールします。</li>
+<li>「新規ボリューム」を作成せずにデプロイを行うと、後で設定する「フレーバ」に定義された 容量の仮想ディスクが仮想マシンに接続されます。この方法はデプロイが&#8221;高速&#8221;である反面、仮想マシンを削除した際に仮想マシン上のデータも削除されます。</li>
+<li>また、「フレーバー」に定義されている仮想ディスク容量が後に設定するOSのインストールサイズより小さい場合、エラーとなり、仮想マシンのデプロイに失敗します。</li>
+</ul>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="6">
+<li>「フレーバー」はm1.smallを選択します。このフレーバーを選択することで、デプロイする仮想マシンのスペックは以下の通りとなります。</li>
+</ol>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="21%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">CPU</th>
+<th class="head">メモリ</th>
+<th class="head">ディスク（一時的なもの）</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1core</td>
+<td>2GB</td>
+<td>20GB</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<a class="reference internal image-reference" href="../_images/instance03.png"><img alt="../_images/instance03.png" src="../_images/instance03.png" style="width: 672.0px; height: 465.5px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="7">
+<li>仮想マシンが接続されるネットワークを選択します。「Sample-Net」を選択します。</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/instance04.png"><img alt="../_images/instance04.png" src="../_images/instance04.png" style="width: 673.4px; height: 363.3px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">ここでは「仮想ネットワークの作成」で「Sample-Net」が作成済みである事を前提とします。</p>
+</div>
+<ol class="arabic simple" start="8">
+<li>ネットワークのポートは設定しません</li>
+<li>セキュリティーグループでは、仮想マシンに割り当てるファイアウォールの定義を行います。今回は「default」を選択します。</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/instance05.png"><img alt="../_images/instance05.png" src="../_images/instance05.png" style="width: 671.3px; height: 361.2px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="10">
+<li>キーペアの画面では「キーペアの作成」をクリックする。</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/instance07.png"><img alt="../_images/instance07.png" src="../_images/instance07.png" style="width: 669.9px; height: 569.8px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">キーペアとは、ゲートウェイサーバから仮想マシンへSSH接続する際に必要なSSH秘密鍵です。
+後から設定したり、作成済みのキーペアをダウンロードする事は出来無いため、注意してください。</p>
+</div>
+<ol class="arabic simple" start="11">
+<li>キーペア名に任意の名前を指定します。作成すると、自動的にキーペアをダウンロードします。</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/instance06.png"><img alt="../_images/instance06.png" src="../_images/instance06.png" style="width: 514.5px; height: 191.1px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ol class="arabic simple" start="12">
+<li>ここまで設定する事で、仮想マシンのデプロイが出来ます。「インスタンスの起動」を選択します。</li>
+</ol>
+<blockquote>
+<div>インスタンス起動後、ウィザードが閉じ、以下の画面になります。</div></blockquote>
+<a class="reference internal image-reference" href="../_images/instance08.png"><img alt="../_images/instance08.png" src="../_images/instance08.png" style="width: 819.7px; height: 162.4px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">仮想マシンが作成されます。</p>
+</div>
+<ol class="arabic simple" start="13">
+<li>仮想マシン作成完了後、インスタンス名をクリックする事で個別のページを遷移します。</li>
+</ol>
+<blockquote>
+<div>「コンソール」を選択すると、仮想マシンのコンソール画面が表示されます。これは、実際のマシンの物理モニタと同じ位置づけになります。</div></blockquote>
+<a class="reference internal image-reference" href="../_images/instance09.png"><img alt="../_images/instance09.png" src="../_images/instance09.png" style="width: 994.0px; height: 415.8px;" /></a>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">今回デプロイした仮想マシンにはユーザIDにパスワードが設定されていない為、初期状態ではコンソールでのログインができません。ゲートウェイサーバからSSH接続完了後にパスワードを設定する事で使用が可能となります。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">仮想マシン(インスタンス)のデプロイ</a><ul>
+<li><a class="reference internal" href="#id2">仮想マシン(インスタンス)について</a></li>
+<li><a class="reference internal" href="#id3">前提</a></li>
+<li><a class="reference internal" href="#id4">構築手順</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="../about/about_giraffestack.html"
+                        title="前の章へ">GiraffeStackとは</a></p>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/guide/deploy_instance.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../about/about_giraffestack.html" title="GiraffeStackとは"
+             >前へ</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">GiraffeStack 1.0.0 ドキュメント</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, killinsun.
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1 で生成しました。
+    </div>
+  </body>
+</html>
