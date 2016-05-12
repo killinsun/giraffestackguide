@@ -22,10 +22,7 @@ Over View:
   guide/deploy_instance
 
 
-Indices and tables
+Infomation
 ==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+ドキュメント作り始めました。
 
