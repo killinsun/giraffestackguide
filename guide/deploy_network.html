@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>仮想ネットワークのデプロイ &mdash; GiraffeStack 1.0.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="GiraffeStack 1.0.0 ドキュメント" href="../index.html" />
+    <link rel="next" title="仮想マシン(インスタンス)のデプロイ" href="deploy_instance.html" />
+    <link rel="prev" title="GiraffeStackとは" href="../about/about_giraffestack.html" /> 
+  </head>
+  <body role="document">
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">GiraffeStack 1.0.0 ドキュメント</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../about/about_giraffestack.html" title="GiraffeStackとは"
+             accesskey="P">前へ</a> |
+          <a href="deploy_instance.html" title="仮想マシン(インスタンス)のデプロイ"
+             accesskey="N">次へ</a> |
+          <a href="../genindex.html" title="総合索引"
+             accesskey="I">索引</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>仮想ネットワークのデプロイ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>仮想ネットワークについて<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+</div>
+<div class="section" id="id3">
+<h2>前提<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li>仮想ネットワーク「SampleNet」を作成する</li>
+<li>「SampleNet」は１つのサブネット「SampleSubnet」を持つ</li>
+<li>「SampleSubnet」は192.168.112.0/24ネットワークを定義する</li>
+<li>「SampleSubnet」のデフォルトゲートウェイは192.168.112.1である</li>
+<li>上記のネットワークとpublic(=外部)を「SampleRouter」で接続する</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>構築手順<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>1.ダッシュボードより「ネットワーク」→「ネットワーク・トポロジー」を選択する
+2.「ルーターの作成」を選択する。</p>
+<a class="reference internal image-reference" href="../_images/network1.png"><img alt="../_images/network1.png" src="../_images/network1.png" style="width: 616.0px; height: 357.5px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>3.「ルーター名」に「SampleRouter」を指定し、「外部ネットワーク」には「Public」を選択する。</p>
+<a class="reference internal image-reference" href="../_images/network2.png"><img alt="../_images/network2.png" src="../_images/network2.png" style="width: 513.8px; height: 262.5px;" /></a>
+<div class="line-block">
+<div class="line">仮想ルーターが作成される。</div>
+</div>
+<a class="reference internal image-reference" href="../_images/network3.png"><img alt="../_images/network3.png" src="../_images/network3.png" style="width: 415.8px; height: 173.6px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>4.再度「ネットワーク・トポロジー」より、「ネットワークの作成」を選択する</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>5.「ネットワーク」タブで「ネットワーク名」に「SampleNet」を指定し、「サブネットの作成」にチェックをする。</p>
+<a class="reference internal image-reference" href="../_images/network4.png"><img alt="../_images/network4.png" src="../_images/network4.png" style="width: 512.4px; height: 292.6px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">「共有」にチェックすると全てのユーザがこのネットワークを参照できます。</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="docutils">
+<dt>6.「サブネット」タブで、「サブネット名」に「SampleSubnet」を指定する。</dt>
+<dd>「ネットワークアドレス」は「192.168.112.0/24」を指定する。
+「ゲートウェイIP」は「192.168.112.1」を指定する。</dd>
+</dl>
+<a class="reference internal image-reference" href="../_images/network5.png"><img alt="../_images/network5.png" src="../_images/network5.png" style="width: 511.7px; height: 370.3px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="docutils">
+<dt>7.「サブネットの詳細」タブで、「IPアドレス割り当てプール」内に以下の項目を指定する。</dt>
+<dd>「192.168.112.2,192.168.112.254」</dd>
+</dl>
+<a class="reference internal image-reference" href="../_images/network6.png"><img alt="../_images/network6.png" src="../_images/network6.png" style="width: 513.8px; height: 431.9px;" /></a>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">6.で指定したゲートウェイIPを含まないIPアドレス範囲を指定してください。</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>8.「DNSサーバ」には「8.8.8.8」を指定し、「作成」ボタンを選択する。</p>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">Googleが持つDNSサーバIPアドレス</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>9.「ネットワーク・トポロジー」で「SampleRouter」を選択し、「インターフェースの追加」を選択する。</p>
+<a class="reference internal image-reference" href="../_images/network7.png"><img alt="../_images/network7.png" src="../_images/network7.png" style="width: 340.0px; height: 132.0px;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>10.「インターフェースの追加」ウィザードの「サブネット」では、先ほど作成した「SampleNet:192.168.112.0/24(SampleSubnet)」を選択し、「送信」を選択する。</p>
+<a class="reference internal image-reference" href="../_images/network8.png"><img alt="../_images/network8.png" src="../_images/network8.png" style="width: 511.7px; height: 308.7px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">注釈</p>
+<p class="last">利用可能な最小IPアドレス(=192.168.112.1)がゲートウェイIPアドレスとして割り振られる為、指定は不要。
+6.で指定したゲートウェイIPアドレスで指定したIPアドレスを指定する。</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="docutils">
+<dt>11.仮想ネットワークが作成できました。</dt>
+<dd>この仮想ネットワークに対し、仮想マシンを接続する事で、外部と通信が出来ます。</dd>
+</dl>
+<a class="reference internal image-reference" href="../_images/network9.png"><img alt="../_images/network9.png" src="../_images/network9.png" style="width: 597.6px; height: 457.2px;" /></a>
+<p>以上</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>目次</h3>
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/about_thispage.html">このドキュメントについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/about_giraffestack.html">GiraffeStackとは</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">仮想ネットワークのデプロイ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">仮想ネットワークについて</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">前提</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">構築手順</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deploy_instance.html">仮想マシン(インスタンス)のデプロイ</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">検索</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="検索" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+          </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../about/about_giraffestack.html" title="GiraffeStackとは"
+              >前へ</a> |
+            <a href="deploy_instance.html" title="仮想マシン(インスタンス)のデプロイ"
+              >次へ</a> |
+            <a href="../genindex.html" title="総合索引"
+              >索引</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/guide/deploy_network.txt"
+                rel="nofollow">ソースコードを表示</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, killinsun.
+      このドキュメントは <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1 で生成しました。
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

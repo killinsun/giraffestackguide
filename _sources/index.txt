@@ -19,7 +19,9 @@ Over View:
 .. toctree::
   :maxdepth: 2
 
+  guide/deploy_network
   guide/deploy_instance
+  guide/connect_from_gateway
 
 
 Infomation
